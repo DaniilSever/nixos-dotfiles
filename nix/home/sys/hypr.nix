@@ -12,6 +12,8 @@
 
 		settings = {
 			monitor = ", 1920x1080@60, 0x0, 1";
+			# monitor = "DP1, 1920x1080@100, 0x0, 1";
+			# monitor = "DP2, 1920x1080@100, 1920x0, 2";
 
 			input = {
 				kb_layout = "us, ru";
