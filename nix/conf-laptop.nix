@@ -4,17 +4,17 @@
   imports = [
     ./hardware-configuration.nix # disk
     
-    ./pkgs/system-core.nix # services + programs
+    ./pkgs-laptop/system-core.nix # services + programs
     
     # -- custom service --
     # ./pkgs/sysmd/xray-hys.nix
     # ./pkgs/sysmd/xray-trojan.nix
-    ./pkgs/sysmd/xray-vless.nix
+    ./pkgs-laptop/sysmd/xray-vless.nix
 
     # -- users and sys.environment --
-    ./pkgs/user.nix
-    ./pkgs/enviroment.nix
-    ./pkgs/gaming.nix
+    ./pkgs-laptop/user.nix
+    ./pkgs-laptop/enviroment.nix
+    ./pkgs-laptop/gaming.nix
   ];
 
   # ----- base settings -----

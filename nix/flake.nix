@@ -19,7 +19,8 @@
 	{
 		nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
 			inherit system;
-			modules = [ ./configuration.nix ];	
+			# modules = [ ./conf-pc.nix];
+			modules = [ ./conf-laptop.nix ];	
 		};
 
 		homeConfigurations.denver = home-manager.lib.homeManagerConfiguration {
