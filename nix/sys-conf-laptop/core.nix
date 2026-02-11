@@ -4,7 +4,7 @@
   imports = [
     ./hardware-configuration.nix # disk
     
-    ./pkgs-laptop/system-core.nix # services + programs
+    ./pkgs-laptop/system.nix # services + programs
     
     # -- custom service --
     # ./pkgs/sysmd/xray-hys.nix
