@@ -7,20 +7,17 @@
     xserver = {
       enable = true;
       xkb.layout = "us";
-      videoDrivers = ["amdgpu"];
-    };
-    
-    displayManager = {
+      videoDrivers = [ "amdgpu" ];
 
-      sddm = {
-        enable = true;
-        wayland.enable = true;
-        theme = "catppuccin-mocha-mauve";  # имя темы из nixpkgs
-      };
+      displayManager = {
+        lightdm = {
+          enable = true;
+        };
 
-      autoLogin = {
-        enable = true;
-        user = "Denver";
+        autoLogin = {
+          enable = true;
+          user = "Denver";
+        };
       };
     };
 
