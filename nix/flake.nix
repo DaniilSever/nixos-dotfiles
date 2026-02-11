@@ -1,5 +1,5 @@
 {
-	description = "My System";
+	description = "DS&SW system v.1";
 
 	inputs = {
 		nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
@@ -15,17 +15,22 @@
 	let
 		system = "x86_64-linux";
 	in
-
 	{
-		nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
-			inherit system;
-			# modules = [ ./conf-pc.nix];
-			modules = [ ./conf-laptop.nix ];	
+		nixosConfigurations = {
+			pc = nixpkgs.lib.nixosSystem {
+				inherit system;
+				modules = [ ./sys-conf-pc/core.nix ];
+			};
+
+			laptop = nixpkgs.lib.nixosSystem {
+				inherit system;
+				modules = [ ./sys-conf-laptop/core.nix ];
+			};
 		};
 
 		homeConfigurations.denver = home-manager.lib.homeManagerConfiguration {
 			pkgs = nixpkgs.legacyPackages.${system};
-			modules = [ ./home.nix ];	
+			modules = [ ./hm/hm-modules.nix ];	
 		};
 	};
 }
