@@ -12,6 +12,7 @@
     ./hyprland/hypr.nix
     ./hyprland/waybar.nix
     ./hyprland/shell.nix
+		# ./hyprland/wlogout.nix
 
 		# ----- Applications -----
 		./applications/appPackage.nix
