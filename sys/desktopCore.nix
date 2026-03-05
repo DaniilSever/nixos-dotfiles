@@ -8,7 +8,7 @@
     ./base/system.nix # services + programs
     ./base/automount.nix
     ./base/account.nix
-    ./base/enviroment.nix
+    ./base/environment.nix
        
     # ./gaming/gameCore.nix
   ];

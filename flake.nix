@@ -36,7 +36,7 @@
 
 		homeConfigurations.denver = home-manager.lib.homeManagerConfiguration {
 			pkgs = nixpkgs.legacyPackages.${system};
-			modules = [ ./hm/hm-modules.nix ];	
+			modules = [ ./home/hmCore.nix ];	
 		};
 	};
 }
