@@ -19,18 +19,18 @@
 	in
 	{
 		nixosConfigurations = {
-			pc = nixpkgs.lib.nixosSystem {
+			desktop = nixpkgs.lib.nixosSystem {
 				inherit system;
 				modules = [ 
 					disko.nixosModules.disko
 					./disko.nix
-					./sys-conf-pc/core.nix
+					./sys/desktopCore.nix
 				];
 			};
 
 			laptop = nixpkgs.lib.nixosSystem {
 				inherit system;
-				modules = [ ./sys-conf-laptop/core.nix ];
+				modules = [ ./sys/laptopCore.nix ];
 			};
 		};
 

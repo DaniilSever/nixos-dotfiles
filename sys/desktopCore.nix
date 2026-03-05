@@ -2,20 +2,15 @@
 
 {
   imports = [
-    ./hardware-configuration.nix # disk
+    ./hardware/lib/desktop/hardware-configuration.nix # disk default
+    # ./hardware/amdOptions.nix
     
-    ./system.nix # services + programs
-    ./automount.nix
-    
-    # -- custom service --
-    # ./sysmd/xray-hys.nix
-    # ./sysmd/xray-trojan.nix
-    # ./sysmd/xray-vless.nix
-
-    # -- users and sys.environment --
-    ./user.nix
-    ./enviroment.nix
-    # ./gaming.nix
+    ./base/system.nix # services + programs
+    ./base/automount.nix
+    ./base/account.nix
+    ./base/enviroment.nix
+       
+    # ./gaming/gameCore.nix
   ];
 
   # ----- base settings -----
