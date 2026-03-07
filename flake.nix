@@ -12,15 +12,22 @@
 		};
 	};
 
-	outputs = { nixpkgs, home-manager, disko, ... }:
+	outputs = { nixpkgs, home-manager, disko, ... }@inputs:
 
 	let
 		system = "x86_64-linux";
+		settings = imports ./settings.nix;
+		activeSystemConfig = settings.systems.${settings.activeSystem}
 	in
 	{
-		nixosConfigurations = {
-			desktop = nixpkgs.lib.nixosSystem {
+		nixosConfigurations.${activeSystemConfig.hostName} = nixpkgs.lib.nixosSystem {
 				inherit system;
+				
+				specialArgs = {
+					inherit settings;
+					deviceConfig = activeSystemConfig;
+				};
+
 				modules = [ 
 					disko.nixosModules.disko
 					./disko.nix
@@ -28,14 +35,13 @@
 				];
 			};
 
-			laptop = nixpkgs.lib.nixosSystem {
-				inherit system;
-				modules = [ ./sys/laptopCore.nix ];
-			};
-		};
-
-		homeConfigurations.denver = home-manager.lib.homeManagerConfiguration {
+		homeConfigurations.${settings.user.username} = home-manager.lib.homeManagerConfiguration {
 			pkgs = nixpkgs.legacyPackages.${system};
+
+			extraSpecialArgs = {
+				inherit settings
+			};
+
 			modules = [ ./home/hmCore.nix ];	
 		};
 	};
