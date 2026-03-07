@@ -32,23 +32,7 @@
       enable = true;
       interfaces = [ "wlo1" ];
       userControlled.enable = true;
-      networks = {
-        "WebStream-5" = {
-          psk = "32183337";
-        };
-        "Denver" = {
-          psk = "vosal,oga";
-        };
-        "PSUTI" = {
-          auth = ''
-            key_mgmt=WPA-EAP
-            eap=PEAP
-            identity="s2530145"
-            password="n8g@9E8N"
-            phase2="auth=MSCHAPV2"
-          '';
-        };
-      };
+      networks = settings.wifi or {};
     };
 
     firewall = {

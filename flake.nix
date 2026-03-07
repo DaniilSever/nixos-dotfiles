@@ -16,8 +16,19 @@
 
 	let
 		system = "x86_64-linux";
-		settings = imports ./settings.nix;
-		activeSystemConfig = settings.systems.${settings.activeSystem}
+		settingsPath = ./.env.nix;
+		files = builtins.readDir ./.;
+
+		settings = 
+			if builtins.pathExists settingsPath
+			then import settingsPath
+			else builtins.throw '' ${files} '';
+
+		
+
+		
+
+		activeSystemConfig = settings.systems.${settings.activeSystem};
 	in
 	{
 		nixosConfigurations.${activeSystemConfig.hostName} = nixpkgs.lib.nixosSystem {
@@ -39,7 +50,7 @@
 			pkgs = nixpkgs.legacyPackages.${system};
 
 			extraSpecialArgs = {
-				inherit settings
+				inherit settings;
 			};
 
 			modules = [ ./home/hmCore.nix ];	
