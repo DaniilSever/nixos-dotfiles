@@ -16,27 +16,17 @@
 
 	let
 		system = "x86_64-linux";
-		settingsPath = ./.env.nix;
-		files = builtins.readDir ./.;
+		hostName = "nixos";
+		userName = "user";
 
-		settings = 
-			if builtins.pathExists settingsPath
-			then import settingsPath
-			else builtins.throw '' ${files} '';
-
-		
-
-		
-
-		activeSystemConfig = settings.systems.${settings.activeSystem};
+		settings = import ./settings.nix;
 	in
 	{
-		nixosConfigurations.${activeSystemConfig.hostName} = nixpkgs.lib.nixosSystem {
+		nixosConfigurations.${hostName} = nixpkgs.lib.nixosSystem {
 				inherit system;
 				
 				specialArgs = {
 					inherit settings;
-					deviceConfig = activeSystemConfig;
 				};
 
 				modules = [ 
@@ -46,7 +36,7 @@
 				];
 			};
 
-		homeConfigurations.${settings.user.username} = home-manager.lib.homeManagerConfiguration {
+		homeConfigurations.${userName} = home-manager.lib.homeManagerConfiguration {
 			pkgs = nixpkgs.legacyPackages.${system};
 
 			extraSpecialArgs = {
