@@ -1,11 +1,14 @@
 { lib, ... }:
 
+let
+  disk-id = "/dev/disk/by-id/nvme-KINGSTON_SNV2S250G_50026B768685D05C";
+in
 {
   disko.devices = {
     disk = {
       main = {
         type = "disk";
-        device = "/dev/disk/by-id/nvme-KINGSTON_SNV2S250G_50026B768685D05C";
+        device = ${disk-id};
         content = {
           type = "gpt";
           partitions = {
