@@ -32,6 +32,12 @@
   networking = {
     hostName = "nixos";
     networkmanager.enable = true;
+    wireless = {
+      enable = true;
+      interfaces = [ "wlo1" ];
+      userControlled.enable = true;
+      networks = settings.wifi;
+    };
   };
 
   time = {
@@ -52,8 +58,9 @@
       LC_PAPER = "ru_RU.UTF-8";
       LC_TELEPHONE = "ru_RU.UTF-8";
       LC_TIME = "ru_RU.UTF-8";
+    };
   };
-  
+
   xdg.portal = {
 		enable = true;
 		extraPortals = with pkgs; [ xdg-desktop-portal-hyprland ];	

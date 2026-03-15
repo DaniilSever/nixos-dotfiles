@@ -8,7 +8,7 @@ in
     disk = {
       main = {
         type = "disk";
-        device = ${disk-id};
+        device = disk-id;
         content = {
           type = "gpt";
           partitions = {

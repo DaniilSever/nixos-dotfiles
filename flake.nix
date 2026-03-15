@@ -16,10 +16,10 @@
 
 	let
 		system = "x86_64-linux";
-		hostName = "nixos";
-		userName = "user";
 
 		settings = import ./settings.nix;
+		hostName = "nixos";
+		userName = "denver";
 	in
 	{
 		nixosConfigurations.${hostName} = nixpkgs.lib.nixosSystem {
@@ -32,7 +32,7 @@
 				modules = [ 
 					disko.nixosModules.disko
 					./disko.nix
-					./sys/desktopCore.nix
+					./sys/defaultCore.nix
 				];
 			};
 
