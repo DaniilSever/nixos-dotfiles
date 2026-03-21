@@ -17,17 +17,12 @@
 	let
 		system = "x86_64-linux";
 
-		settings = import ./settings.nix;
 		hostName = "nixos";
 		userName = "denver";
 	in
 	{
 		nixosConfigurations.${hostName} = nixpkgs.lib.nixosSystem {
 				inherit system;
-				
-				specialArgs = {
-					inherit settings;
-				};
 
 				modules = [ 
 					disko.nixosModules.disko
@@ -38,10 +33,6 @@
 
 		homeConfigurations.${userName} = home-manager.lib.homeManagerConfiguration {
 			pkgs = nixpkgs.legacyPackages.${system};
-
-			extraSpecialArgs = {
-				inherit settings;
-			};
 
 			modules = [ ./home/hmCore.nix ];	
 		};

@@ -4,10 +4,10 @@
   #TODO: вынести в .env (settings.nix)
   imports = [
     ./hardware/lib/desktop/hardware-configuration.nix # disk default
-    ./hardware/amdOptions.nix  # или ./hardware/intelOptions.nix
+    ./hardware/intelOptions.nix  # или ./hardware/intelOptions.nix
     
     ./base/system.nix # services + programs
-    ./base/automount.nix
+    # ./base/automount.nix
     ./base/account.nix
     ./base/environment.nix
        

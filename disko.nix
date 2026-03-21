@@ -1,7 +1,7 @@
 { lib, ... }:
 
 let
-  disk-id = "/dev/disk/by-id/nvme-KINGSTON_SNV2S250G_50026B768685D05C";
+  disk-id = "/dev/disk/by-id/nvme-INTEL_SSDPEKNW512G8_PHNH052500S3512A";
 in
 {
   disko.devices = {
@@ -10,7 +10,7 @@ in
         type = "disk";
         device = disk-id;
         content = {
-          type = "gpt";
+          type = "mbr";
           partitions = {
             ESP = {
               size = "1G";

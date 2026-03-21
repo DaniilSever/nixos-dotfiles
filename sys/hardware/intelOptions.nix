@@ -30,9 +30,6 @@
   networking = {
     wireless = {
       enable = true;
-      interfaces = [ "wlo1" ];
-      userControlled.enable = true;
-      networks = settings.wifi or {};
     };
 
     firewall = {

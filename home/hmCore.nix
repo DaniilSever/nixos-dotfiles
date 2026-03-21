@@ -9,8 +9,8 @@
 
 	imports = [
 		# ----- System Components -----
-    ./hyprland/hypr.nix
-    ./hyprland/waybar.nix
+    # ./hyprland/hypr.nix
+    # ./hyprland/waybar.nix
     ./hyprland/shell.nix
 		# ./hyprland/wlogout.nix
 

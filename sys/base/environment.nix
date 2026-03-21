@@ -13,11 +13,6 @@
 			sing-box
 			throne
 
-			(pkgs.catppuccin-sddm.override {
-				flavor = "mocha";
-				accent = "mauve";
-			})
-
 			python313
 			python313Packages.pip
 
