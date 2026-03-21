@@ -7,17 +7,20 @@
     xserver = {
       enable = true;
       xkb.layout = "us";
-      videoDrivers = [ "amdgpu" ];
+
+      desktopManager.xfce.enable = true;
+      displayManager.lightdm.enable = true;
     };
 
     displayManager = {
-	  enable = true;
-	  
-	  sddm = {
-	    enable = true;
- 	  };
-
-	  defaultSession = "hyprland-uwsm";
+      enable = true;
+      
+      # sddm = {
+      #   enable = true;
+      # };
+      
+      
+      defaultSession = "xfce";
     
    	  autoLogin = {
    	  	enable = true;
@@ -99,11 +102,11 @@
     zsh.enable = true;
     xfconf.enable = true;
     
-    hyprland = {
-      enable = true;
-      withUWSM = true;
-      xwayland.enable = true;
-    };
+    # hyprland = {
+    #   enable = true;
+    #   withUWSM = true;
+    #   xwayland.enable = true;
+    # };
 
     steam = {
       enable = true;
