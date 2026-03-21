@@ -1,4 +1,4 @@
-{ config, pkgs, settings, ... }:
+{ config, pkgs, ... }:
 
 {
   #TODO: вынести в .env (settings.nix)
@@ -32,12 +32,6 @@
   networking = {
     hostName = "nixos";
     networkmanager.enable = true;
-    wireless = {
-      enable = true;
-      interfaces = [ "wlo1" ];
-      userControlled.enable = true;
-      networks = settings.wifi;
-    };
   };
 
   time = {

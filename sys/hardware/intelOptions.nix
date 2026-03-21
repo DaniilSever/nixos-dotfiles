@@ -1,3 +1,5 @@
+{ pkgs, ... }:
+
 {
   boot = {
     kernelParams = [
@@ -28,10 +30,6 @@
   };
 
   networking = {
-    wireless = {
-      enable = true;
-    };
-
     firewall = {
       allowedTCPPorts = [ 
         27015 27036  # Steam

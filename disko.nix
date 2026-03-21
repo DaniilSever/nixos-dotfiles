@@ -10,7 +10,7 @@ in
         type = "disk";
         device = disk-id;
         content = {
-          type = "mbr";
+          type = "gpt";
           partitions = {
             ESP = {
               size = "1G";
