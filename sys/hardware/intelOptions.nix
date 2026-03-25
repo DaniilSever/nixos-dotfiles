@@ -2,31 +2,46 @@
 
 {
   boot = {
-    kernelParams = [
-      "i915.enable_guc=2"
-      "i915.enable_fbc=1"
-      "i915.enable_psr=1"
-      "i915.enable_dc=2"
-      "i915.fastboot=1"
-    ];
+    initrd.kernelModules = [ "i915" ];
+    kernelModules = [ "kvm-intel" ];
 
-    kernel.sysctl = {
-      # Увеличиваем размеры буферов для сетевых игр
-      "net.core.rmem_max" = 134217728;
-      "net.core.wmem_max" = 134217728;
-      "net.ipv4.tcp_rmem" = "4096 87380 134217728";
-      "net.ipv4.tcp_wmem" = "4096 65536 134217728";
-      
-      # Для игр с большим количеством текстур
-      "vm.max_map_count" = 2147483642;
-      
-      # Уменьшаем swap usage для игр
-      "vm.swappiness" = 10;
-      "vm.vfs_cache_pressure" = 50;
+    kernelParams = [
+      "i915.enable_guc=3"
+      "i915.enable_psr=0"
+    ];
+  };
+
+  services = {
+    thermald.enable = true;
+
+    xserver = {
+      enable = true;
+      videoDrivers = [ "modesetting" ];
     };
 
-    initrd.kernelModules = [ "i915" ];
-    kernelModules = [ "tun" ];
+    tlp = {
+      enable = true;
+      settings = {
+        # Режимы CPU в зависимости от питания
+        CPU_SCALING_GOVERNOR_ON_AC = "performance";
+        CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+        
+        # Политика энергопотребления
+        CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
+        CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
+        
+        # Лимиты частоты (на Tiger Lake хорошо работают эти настройки)
+        CPU_MIN_PERF_ON_AC = 0;
+        CPU_MAX_PERF_ON_AC = 100;
+        CPU_MIN_PERF_ON_BAT = 0;
+        CPU_MAX_PERF_ON_BAT = 60;  # Ограничиваем на батарее для экономии
+        
+        # Опционально: защита батареи (если ноутбук поддерживает)
+        START_CHARGE_THRESH_BAT0 = 40;
+        STOP_CHARGE_THRESH_BAT0 = 80;
+      };
+    };
+
   };
 
   networking = {
@@ -46,6 +61,11 @@
     };
   };
 
+  environment.sessionVariables = {
+    LIBVA_DRIVER_NAME = "iHD";
+    VDPAU_DRIVER = "va_gl";
+  };
+
   hardware = {
   	bluetooth.enable = true;
     graphics = {
@@ -53,22 +73,21 @@
       enable32Bit = true;
 
       extraPackages = with pkgs; [
-        intel-media-driver
-        intel-compute-runtime
-        intel-vaapi-driver
-        intel-gpu-tools
-        vulkan-tools
-        vulkan-loader
-        vulkan-validation-layers
-
-        intel-vaapi-driver
-        libva-vdpau-driver
-        libvdpau-va-gl
-      ];
-
-      extraPackages32 = with pkgs; [
-        driversi686Linux.intel-vaapi-driver
+        intel-media-driver          # VAAPI для кодека AV1
+        intel-compute-runtime       # OpenCL
+        libvdpau-va-gl              # VDPAU поверх VAAPI
+        vaapiVdpau                  # Мост для обратной совместимости
       ];
     };
+  };
+
+  nix = {
+    settings = {
+      max-jobs = 4;
+      cores = 2;
+    };
+
+    daemonCPUSchedPolicy = "idle";
+    daemonIOSchedClass = "idle";
   };
 }
