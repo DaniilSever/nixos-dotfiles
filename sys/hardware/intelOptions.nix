@@ -13,7 +13,7 @@
 
   services = {
     thermald.enable = true;
-
+    power-profiles-daemon.enable = false;
     xserver = {
       enable = true;
       videoDrivers = [ "modesetting" ];
@@ -76,7 +76,7 @@
         intel-media-driver          # VAAPI для кодека AV1
         intel-compute-runtime       # OpenCL
         libvdpau-va-gl              # VDPAU поверх VAAPI
-        vaapiVdpau                  # Мост для обратной совместимости
+        libva-vdpau-driver                  # Мост для обратной совместимости
       ];
     };
   };

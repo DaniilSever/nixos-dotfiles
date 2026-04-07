@@ -13,6 +13,7 @@
 		keepassxc
 		prismlauncher
 		spotify
+		qbittorrent
 	];
 
 	imports = [

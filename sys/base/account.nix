@@ -5,6 +5,6 @@
 		isNormalUser = true;
 		description = "Denver";
 		shell = pkgs.zsh;
-		extraGroups = [ "networkmanager" "wheel" "storage" "dick" ];
+		extraGroups = [ "networkmanager" "wheel" "storage" "dick" "docker" ];
 	};
 }

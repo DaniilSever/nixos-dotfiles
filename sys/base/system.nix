@@ -3,24 +3,28 @@
 {
   services = {
     flatpak.enable = true;
+    tailscale.enable = true;
 
     xserver = {
       enable = true;
       xkb.layout = "us";
 
-      desktopManager.xfce.enable = true;
-      displayManager.lightdm.enable = true;
+      excludePackages = with pkgs; [ xterm ];
     };
 
+    desktopManager.gnome.enable = true;
     displayManager = {
       enable = true;
-      
+      gdm = {
+        enable = true;
+        wayland = true;
+      };
       # sddm = {
       #   enable = true;
       # };
       
       
-      defaultSession = "xfce";
+      defaultSession = "gnome";
     
    	  autoLogin = {
    	  	enable = true;
@@ -28,69 +32,64 @@
    	  };
     };
 
-    # pipewire = {
-    #   enable = true;
-    #   pulse.enable = true;
-    #   alsa = {
-    #     enable = true;
-    #     support32Bit = true;
-    #   };
-    # };
-  };
+    gnome = {
+      core-apps.enable = false;
+      core-developer-tools.enable = false;
+      games.enable = false;
+    };
 
-  # Включаем PipeWire
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    wireplumber.enable = true;  # обычно включен по умолчанию
-  };
+    pipewire = {
+      enable = true;
+      pulse.enable = true;
+      alsa = {
+        enable = true;
+        support32Bit = true;
+      };
 
-  # Добавляем конфигурацию через extraConfig
-  services.pipewire.extraConfig.pipewire = {
-    "context.modules" = [
-      {
-        name = "libpipewire-module-echo-cancel";
-        args = {
-          "capture.props" = {
-            "node.name" = "capture.echo-cancel";
-            "stream.dont-remix" = true;
-            "node.passive" = true;
-          };
-          "playback.props" = {
-            "node.name" = "playback.echo-cancel";
-            "stream.dont-remix" = true;
-            "node.passive" = true;
-          };
-        };
-      }
-    ];
-  };
-
-  # Отключаем AGC через WirePlumber
-  services.pipewire.wireplumber.configPackages = [
-    (pkgs.writeTextDir "share/wireplumber/main.lua.d/51-disable-agc.lua" ''
-      rule = {
-        matches = {
+      extraConfig.pipewire = {
+        "context.modules" = [
           {
-            { "node.name", "matches", "alsa_input.*" },
-          },
-        },
-        apply_properties = {
-          ["node.name"] = "disable-agc",
-          ["audio.channels"] = 2,
-          ["audio.format"] = "S16LE",
-          ["audio.rate"] = 48000,
-          ["api.alsa.soft-mixer"] = true,
-          ["api.alsa.soft-vol"] = true,
-          ["node.disabled"] = false,
-        },
-      }
-      
-      table.insert(alsa_monitor.rules, rule)
-    '')
-  ];
+            name = "libpipewire-module-echo-cancel";
+            args = {
+              "capture.props" = {
+                "node.name" = "capture.echo-cancel";
+                "stream.dont-remix" = true;
+                "node.passive" = true;
+              };
+              "playback.props" = {
+                "node.name" = "playback.echo-cancel";
+                "stream.dont-remix" = true;
+                "node.passive" = true;
+              };
+            };
+          }
+        ];
+      };
+
+      wireplumber.configPackages = [
+        (pkgs.writeTextDir "share/wireplumber/main.lua.d/51-disable-agc.lua" ''
+          rule = {
+            matches = {
+              {
+                { "node.name", "matches", "alsa_input.*" },
+              },
+            },
+            apply_properties = {
+              ["node.name"] = "disable-agc",
+              ["audio.channels"] = 2,
+              ["audio.format"] = "S16LE",
+              ["audio.rate"] = 48000,
+              ["api.alsa.soft-mixer"] = true,
+              ["api.alsa.soft-vol"] = true,
+              ["node.disabled"] = false,
+            },
+          }
+          
+          table.insert(alsa_monitor.rules, rule)
+        '')
+      ];
+    };
+  };
 
   # Устанавливаем pavucontrol для ручного управления
   environment.systemPackages = with pkgs; [
@@ -110,6 +109,7 @@
 
     steam = {
       enable = true;
+      package = pkgs.millennium-steam;
       remotePlay.openFirewall = true;
       dedicatedServer.openFirewall = true;
       
@@ -131,14 +131,19 @@
         ];
       };
     };
-
   };
 
   systemd.services.nix-daemon.environment = {
     ALL_PROXY = "http://127.0.0.1:10808";
     HTTP_PROXY = "http://127.0.0.1:10808";
     HTTPS_PROXY = "http://127.0.0.1:10808";
-
-    NO_PROXY = "localhost,127.0.0.1";
   };
+
+  virtualisation.docker = {
+    enable = true;
+    # Разрешить запуск без sudo (добавляет пользователя в группу docker)
+    enableOnBoot = true;
+    autoPrune.enable = true;  # Автоматическая очистка
+  };
+
 }

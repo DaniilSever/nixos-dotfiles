@@ -11,6 +11,8 @@
 		# ----- System Components -----
     # ./hyprland/hypr.nix
     # ./hyprland/waybar.nix
+		./gnome/dconf.nix
+		./gnome/dconfThemes.nix
     ./hyprland/shell.nix
 		# ./hyprland/wlogout.nix
 

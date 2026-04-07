@@ -5,6 +5,10 @@
 		nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
 		disko.url = "github:nix-community/disko";
 		disko.inputs.nixpkgs.follows = "nixpkgs";
+		millennium = {
+      url = "github:SteamClientHomebrew/Millennium?dir=packages/nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
 		home-manager = {
 			url = "github:nix-community/home-manager/release-25.11";
@@ -12,7 +16,7 @@
 		};
 	};
 
-	outputs = { nixpkgs, home-manager, disko, ... }@inputs:
+	outputs = { nixpkgs, home-manager, disko, millennium, ... }@inputs:
 
 	let
 		system = "x86_64-linux";
@@ -28,6 +32,7 @@
 					disko.nixosModules.disko
 					./disko.nix
 					./sys/defaultCore.nix
+					{ nixpkgs.overlays = [ millennium.overlays.default ]; }
 				];
 			};
 

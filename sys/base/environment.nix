@@ -11,26 +11,37 @@
 			qt6.qtwayland
 			xray
 			sing-box
-			throne
+			v2rayn
+			androidenv.androidPkgs.platform-tools
+			gnome-tweaks
+			nautilus
+
+			go
 
 			python313
 			python313Packages.pip
+			
+			javaPackages.compiler.temurin-bin.jre-21
+			javaPackages.compiler.temurin-bin.jre-25
 
 			git
+			_7zz
 			docker
 			btop
 			micro
 			wget
 			firefox
+			google-chrome
 			wezterm
 			appimage-run
 			bcompare
+			scrcpy
 			onlyoffice-desktopeditors
 		];
 
 		variables = {
 			QT_STYLE_OVERRIDE = "Fusion";
-			QT_QPA_PLATFORM = "wayland";
+			QT_QPA_PLATFORM = "xcb";
 		};
 
 		sessionVariables = {
@@ -47,7 +58,7 @@
 			https_proxy = "http://127.0.0.1:10808";
 			socks_proxy = "socks5://127.0.0.1:10808";
 
-			NO_PROXY = "localhost,127.0.0.1,192.168.0.0/16,10.0.0.0/8,::1,*.mail.ru,*.psuti.ru,*.deepseek.com,*.spotify.com";
+			NO_PROXY = "*.mail.ru,*.psuti.ru,*.spotify.com";
 		};
 	};
 }
