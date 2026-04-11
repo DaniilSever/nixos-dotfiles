@@ -21,7 +21,7 @@
   programs = {
     zsh.enable = true;
     xfconf.enable = true;
-    xwayland = true;
+    xwayland.enable = true;
 
     steam = {
       enable = true;

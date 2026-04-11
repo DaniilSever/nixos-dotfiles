@@ -1,5 +1,5 @@
 {
-  programs.systemd.services.nix-daemon.environment = {
+  systemd.services.nix-daemon.environment = {
     ALL_PROXY = "http://127.0.0.1:10808";
     HTTP_PROXY = "http://127.0.0.1:10808";
     HTTPS_PROXY = "http://127.0.0.1:10808";

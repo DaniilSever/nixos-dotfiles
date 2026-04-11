@@ -7,7 +7,6 @@
   services.xserver.videoDrivers = [ "amdgpu" ];
 
   hardware = {
-  	opengl.enable = true;
   	bluetooth.enable = true;
     graphics = {
       enable = true;
