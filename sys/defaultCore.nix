@@ -1,16 +1,17 @@
 { config, pkgs, ... }:
 
 {
-  #TODO: вынести в .env (settings.nix)
   imports = [
     ./hardware/lib/desktop/hardware-configuration.nix # disk default
-    ./hardware/intelOptions.nix  # или ./hardware/intelOptions.nix
+    ./hardware/amdOptions.nix  # или ./hardware/intelOptions.nix
     
-    ./base/system.nix # services + programs
-    # ./base/automount.nix
-    ./base/account.nix
-    ./base/environment.nix
-    ./base/local-proxy.nix
+    ./modules/system.nix # services + programs
+    ./modules/desktop/gnome.nix
+    ./modules/sound.nix
+    ./modules/automount.nix
+    ./modules/account.nix
+    ./modules/environment.nix
+    ./modules/local-proxy.nix
        
     # ./gaming/gameCore.nix
   ];
