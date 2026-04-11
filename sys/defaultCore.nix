@@ -10,6 +10,7 @@
     # ./base/automount.nix
     ./base/account.nix
     ./base/environment.nix
+    ./base/local-proxy.nix
        
     # ./gaming/gameCore.nix
   ];
@@ -28,7 +29,6 @@
     };
   };
 
-  #TODO: вынести в .env (settings.nix)
   networking = {
     hostName = "nixos";
     networkmanager.enable = true;
@@ -36,7 +36,7 @@
 
   time = {
     hardwareClockInLocalTime = true;
-    timeZone = "Asia/Novosibirsk";  #TODO: вынести в .env (settings.nix)
+    timeZone = "Asia/Novosibirsk";
   };
 
   i18n = {
@@ -66,7 +66,6 @@
     permittedInsecurePackages = [ "electron-36.9.5" ];
   };
   
-  #TODO: autoupdate и autoclear можно подумать и сделать в .env (settings.nix) через проверку на true
   # --autoupdate--
   system.autoUpgrade = {
     enable = true;
@@ -89,5 +88,5 @@
     };
   };
 
-  system.stateVersion = "25.11";  #TODO: можно подумать как синхронизировать с flake.nix чтоб в 1 месте прописывать версию системы
+  system.stateVersion = "25.11";
 }

@@ -8,35 +8,19 @@
     xserver = {
       enable = true;
       xkb.layout = "us";
-
-      excludePackages = with pkgs; [ xterm ];
     };
 
-    desktopManager.gnome.enable = true;
+    
     displayManager = {
-      enable = true;
-      gdm = {
-        enable = true;
-        wayland = true;
-      };
       # sddm = {
       #   enable = true;
       # };
-      
-      
-      defaultSession = "gnome";
-    
    	  autoLogin = {
    	  	enable = true;
    	  	user = "Denver";
    	  };
     };
 
-    gnome = {
-      core-apps.enable = false;
-      core-developer-tools.enable = false;
-      games.enable = false;
-    };
 
     pipewire = {
       enable = true;
@@ -100,6 +84,7 @@
   programs = {
     zsh.enable = true;
     xfconf.enable = true;
+    xwayland = true;
     
     # hyprland = {
     #   enable = true;
@@ -131,12 +116,6 @@
         ];
       };
     };
-  };
-
-  systemd.services.nix-daemon.environment = {
-    ALL_PROXY = "http://127.0.0.1:10808";
-    HTTP_PROXY = "http://127.0.0.1:10808";
-    HTTPS_PROXY = "http://127.0.0.1:10808";
   };
 
   virtualisation.docker = {

@@ -4,18 +4,19 @@
   environment = {
 		
 		systemPackages = with pkgs; [
+			# ------- sys_pkgs -------
 			home-manager
 			neofetch
 			direnv
 			libsForQt5.qt5.qtgraphicaleffects
 			qt6.qtwayland
+
+			# ------- vpn_pkgs -------
 			xray
 			sing-box
 			v2rayn
-			androidenv.androidPkgs.platform-tools
-			gnome-tweaks
-			nautilus
 
+			# ------- dev_pkgs -------
 			go
 
 			python313
@@ -24,6 +25,7 @@
 			javaPackages.compiler.temurin-bin.jre-21
 			javaPackages.compiler.temurin-bin.jre-25
 
+			# ------- general_pkgs -------
 			git
 			_7zz
 			docker
@@ -39,26 +41,15 @@
 			onlyoffice-desktopeditors
 		];
 
-		variables = {
-			QT_STYLE_OVERRIDE = "Fusion";
-			QT_QPA_PLATFORM = "xcb";
-		};
-
 		sessionVariables = {
 			MOZ_ENABLE_WAYLAND = "1";
 			NIXOS_OZONE_WL = "1";
+			QT_STYLE_OVERRIDE = "Fusion";
+			QT_QPA_PLATFORM = "wayland";
+			SDL_VIDEODRIVER = "wayland";
 			XKB_DEFAULT_LAYOUT = "us, ru";
+			PROTON_ENABLE_WAYLAND = "1";
 			XKB_DEFAULT_OPTIONS = "grp:win_space_toggle";
-
-			ALL_PROXY = "http://127.0.0.1:10808";
-			HTTP_PROXY = "http://127.0.0.1:10808";
-			HTTPS_PROXY = "http://127.0.0.1:10808";
-
-			http_proxy = "http://127.0.0.1:10808";
-			https_proxy = "http://127.0.0.1:10808";
-			socks_proxy = "socks5://127.0.0.1:10808";
-
-			NO_PROXY = "*.mail.ru,*.psuti.ru,*.spotify.com";
 		};
 	};
 }

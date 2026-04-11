@@ -1,14 +1,15 @@
 { lib, ... }:
 
 let
-  disk-id = "/dev/disk/by-id/nvme-INTEL_SSDPEKNW512G8_PHNH052500S3512A";
+  lap-disk-id = "/dev/disk/by-id/nvme-INTEL_SSDPEKNW512G8_PHNH052500S3512A";
+  pc-disk-id = "/dev/disk/by-id/nvme-KINGSTON_SNV2S250G_50026B768685D05C";
 in
 {
   disko.devices = {
     disk = {
       main = {
         type = "disk";
-        device = disk-id;
+        device = pc-disk-id;
         content = {
           type = "gpt";
           partitions = {
