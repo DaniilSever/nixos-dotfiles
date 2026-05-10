@@ -14,6 +14,6 @@
     https_proxy = "http://127.0.0.1:10808";
     socks_proxy = "socks5://127.0.0.1:10808";
 
-    NO_PROXY = "*.mail.ru,*.psuti.ru,*.spotify.com";
+    NO_PROXY = "localhost, 127.0.0.1, *.mail.ru,*.psuti.ru,*.spotify.com";
   };
 }

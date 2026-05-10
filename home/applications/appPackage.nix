@@ -10,10 +10,11 @@
 		vlc
 		telegram-desktop
 		vesktop
+		discord
 		keepassxc
-		prismlauncher
 		spotify
 		qbittorrent
+		bitwarden-desktop
 	];
 
 	imports = [

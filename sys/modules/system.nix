@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   services = {
@@ -25,7 +25,6 @@
 
     steam = {
       enable = true;
-      package = pkgs.millennium-steam;
       remotePlay.openFirewall = true;
       dedicatedServer.openFirewall = true;
       
@@ -49,11 +48,33 @@
     };
   };
 
-  virtualisation.docker = {
-    enable = true;
-    # Разрешить запуск без sudo (добавляет пользователя в группу docker)
-    enableOnBoot = true;
-    autoPrune.enable = true;  # Автоматическая очистка
+  virtualisation = {
+
+    spiceUSBRedirection.enable = true;
+    libvirtd = {
+      enable = true;
+      qemu = {
+        package = pkgs.qemu_kvm;
+        swtpm.enable = true;
+        vhostUserPackages = with pkgs; [ virtiofsd ];
+      };
+    };
+
+    docker = {
+      enable = true;
+      # Разрешить запуск без sudo (добавляет пользователя в группу docker)
+      enableOnBoot = true;
+      autoPrune.enable = true;
+    };  # Автоматическая очистка
   };
 
+  environment.systemPackages = with pkgs; [
+    virt-manager
+    virt-viewer       # SPICE клиент
+    spice             # протокол удаленного доступа
+    spice-gtk
+    virtio-win        # ISO с драйверами VirtIO для Windows
+    win-spice         # ISO с драйверами SPICE для Windows
+    quickemu          # (опционально) альтернативный способ запуска ВМ
+  ];
 }

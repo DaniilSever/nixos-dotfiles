@@ -8,16 +8,15 @@
     ./modules/system.nix # services + programs
     ./modules/desktop/gnome.nix
     ./modules/sound.nix
-    ./modules/automount.nix
+    # ./modules/automount.nix
     ./modules/account.nix
     ./modules/environment.nix
-    ./modules/local-proxy.nix
+    # ./modules/local-proxy.nix
        
-    # ./gaming/gameCore.nix
+    ./modules/gaming/gameCore.nix
   ];
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_latest;
     supportedFilesystems = [ "ntfs" "exfat" "vfat" "ext4" ];
 
     loader = {
@@ -25,7 +24,7 @@
 
       systemd-boot = {
         enable = true;
-        configurationLimit = 3;  # count in system-boot
+        configurationLimit = 5;  # count in system-boot
       };
     };
   };

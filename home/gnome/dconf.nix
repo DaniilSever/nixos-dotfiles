@@ -17,7 +17,7 @@
     enable = true;
     settings = {
       "org/gnome/desktop/wm/preferences" = {
-        num-workspaces = 4;
+        num-workspaces = 2;
         button-layout = "appmenu:minimize,maximize,close";
       };
       

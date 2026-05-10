@@ -5,6 +5,6 @@
 		isNormalUser = true;
 		description = "Denver";
 		shell = pkgs.zsh;
-		extraGroups = [ "networkmanager" "wheel" "storage" "dick" "docker" ];
+		extraGroups = [ "networkmanager" "wheel" "storage" "dick" "docker" "libvirtd" ];
 	};
 }

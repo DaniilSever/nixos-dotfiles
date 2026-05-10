@@ -2,6 +2,7 @@
 
 {
   boot = {
+    kernelPackages = pkgs.linuxPackages_latest;
     initrd.kernelModules = [ "i915" ];
     kernelModules = [ "kvm-intel" ];
 
